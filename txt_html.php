@@ -5,7 +5,7 @@
 
 .menu_css {    
 
-  font-size: 25px;
+  font-size: 22px;
   color: #df4623;
   background-color: #112029;
 
@@ -14,10 +14,12 @@
 .menu_css tt {         
   display: block;
   text-transform: none;
-  font-size: 30px;
+  font-size: 28px;
+   font-weight: bold;
   margin: 10px;
   color:  #df4623;
   text-align: center;
+  font-family:sail;
   
 }
 
@@ -29,6 +31,7 @@
   line-height: 12px;
   font-style: normal;
   color: white;
+  font-family:corbel;
   
 }
 
