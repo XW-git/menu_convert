@@ -3,14 +3,15 @@
 <title>Page Title</title>
 <style>
 
-.rm-content {
+.menu_css {
 
   font-size: 25px;
   color: #df4623;
   background-color: #112029;
 
 }
-.rm-content tt {
+
+.menu_css tt {         <!-- title  -->
   display: block;
   text-transform: none;
   font-size: 30px;
@@ -20,7 +21,7 @@
   
 }
 
-.rm-content i {
+.menu_css ds {         <!-- description -->
   display: block;
   text-transform: none;
   font-size: 15px;
@@ -31,7 +32,7 @@
   
 }
 
-.rm-content em {
+.menu_css pr {       <!-- price -->
   float: right;
   font-style: normal;
 }
@@ -39,7 +40,7 @@
 </head>
 
 <body>
-<div class="rm-content">
+<div class="menu_css">
 
 <?php
 
@@ -69,11 +70,11 @@ $str=$line;
             else{ 
                 $dish_name=str_replace($price,"",$line);
                 echo  $dish_name;
-                echo  "<em>". $price ."</em>". "<br>";
+                echo  "<pr>". $price ."</pr>". "<br>";
             }            
             break;
        case 2:
-            echo "<i>". $line. "</i>";
+            echo "<ds>". $line. "</ds>";
             break;
        default:
             break; 
