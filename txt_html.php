@@ -3,7 +3,7 @@
 <title>Page Title</title>
 <style>
 
-.menu_css {
+.menu_css {    
 
   font-size: 25px;
   color: #df4623;
@@ -11,7 +11,7 @@
 
 }
 
-.menu_css tt {         <!-- title  -->
+.menu_css tt {         
   display: block;
   text-transform: none;
   font-size: 30px;
@@ -21,7 +21,7 @@
   
 }
 
-.menu_css ds {         <!-- description -->
+.menu_css ds {         
   display: block;
   text-transform: none;
   font-size: 15px;
@@ -32,7 +32,7 @@
   
 }
 
-.menu_css pr {       <!-- price -->
+.menu_css pr {       
   float: right;
   font-style: normal;
 }
@@ -44,7 +44,7 @@
 
 <?php
 
-$test_csv =  ABSPATH.'restaurant_menu/Chef’s Special Rolls.txt';
+$test_csv =  ABSPATH.'restaurant_menu/a.txt';
 
 $i = 0;
 $lines = file($test_csv);
