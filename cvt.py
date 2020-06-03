@@ -30,7 +30,7 @@ def get_title_part(line):
         else:
         #reached title end
             if tt_ds == True:
-                file_out.write("<\\tt_ds><br>")
+                file_out.write("</tt_ds>")
             file_out.write("\n\n")
             title_done=True
             return
@@ -38,7 +38,7 @@ def get_title_part(line):
     else:
         if title=="":
             title=line 
-            file_out.write("<tt>"+title.strip()+"<\\tt>"+"<br>"+"\n")
+            file_out.write("<tt>"+title.strip()+"</tt>" + "\n")
             return  
         else:
             if tt_ds==False:
@@ -127,9 +127,9 @@ while True:
         check_items_end()           
         if( price != "" ):
             price=price.strip()
-            file_out.write(dish_name + "<pr>" + price + "<\\pr>" + "<br>" + "\n")
+            file_out.write(dish_name + "<pr>" + price + "</pr>"  + "\n")
             if description != "":
-                file_out.write( "<ds>" + description + "<\\ds>" + "<br>" + "\n")
+                file_out.write( "<ds>" + description + "</ds>"  + "\n")
             # a empty line indicates new item starts
             file_out.write("\n")        
             # reset parameters 
