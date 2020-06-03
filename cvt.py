@@ -1,7 +1,7 @@
 '''
-convert file 
-usage: cvt abc.txt
-it generates abc.csv
+convert files output in tmp/ folder 
+usage: cvt file 
+it generates file  to tmp\.
 this first check in just demo read and print file
 '''
 
@@ -19,6 +19,62 @@ def is_price( str ):
     t = str.replace(".", "")
     return t.isdigit()
 
+def get_title_part(line):
+    global title
+    global title_done
+    if line=="\n":
+        if title=="":
+           return
+        else:
+           file_out.write("\n\n")
+           title_done=True
+           return
+    else:
+        title=line 
+        file_out.write(title)
+        return    
+        
+def get_dish_items(line):
+    global dish_name
+    global description
+    global price
+    
+    line = line.strip()      #strip will remove "\n"
+    if dish_name == "" :
+        dish_name= line
+        x = line.find("(")
+        if x!= -1:
+            dish_name= line[0:x-1]
+            description=line[x:len(line)]
+
+    else: 
+        description += " " + line
+    
+    return            
+ 
+def  check_price_in(str):
+    global price
+    str=str.strip()
+    list = str.split()
+    last = list[-1]            # check the last word 
+                           
+    if( is_price(last)==True ):
+        price = last
+        str=str.replace(last,"")
+    return  str      
+
+def check_items_end():
+    global dish_name
+    global description
+    global price
+
+    if price =="":
+        dish_name = check_price_in( dish_name )
+    if price =="":
+        description = check_price_in( description )    
+        
+    return
+
     
 # main program
 
@@ -26,84 +82,49 @@ check_cmdline()
 
 file=open(sys.argv[1], "r")
 
-gen_file=sys.argv[1]+".txt"
+list=sys.argv[1].split("\\")
+gen_file=list[-1]
+gen_file="tmp\\"+gen_file
+print(gen_file)
 file_out=open(gen_file, "w")
 
 count = 0;
 
-i = 0;
 title=""
+title_done= False
+
+dish_name = ""
+price = ""            
+description = ""
 
 while True:
+
     # Get next line from file
     line = file.readline()
-    line = line.strip()
+    #line = line.strip()      strip will remove "/n"
 
     # if line is empty, end of file is reached
     if not line:
         break
 
-    
-    if line=='\n':
-        i = 0
-        # reset parameters 
-        dish_name = ""
-        price = ""            
-        description = ""
+    if title_done == False:
+        get_title_part(line)
     else:
-        if title=="":
-            title=line 
-            file_out.write(title + "\n\n\n")
-            i = 0
+        get_dish_items(line)
+        check_items_end()           
+        if( price != "" ):
+            price=price.strip()
+            file_out.write(dish_name + "\t" + price + "\n")
+            if description != "":
+                file_out.write(description + "\n")
+            # a empty line indicates new item starts
+            file_out.write("\n")        
+            # reset parameters 
             dish_name = ""
             price = ""            
-            description = ""        
-        elif dish_name == "" :
+            description = ""
 
-            x = line.find("(")
-            if x!= -1:
-                dish_name= line[0:x-1]
-                description=line[x:len(line)]
-            else:
-                dish_name= line
-
-        else: 
-            description += " " + line
-            #description=description.strip()
-            # check price
-            # get the last word
-            list = description.split()
-            last = list[-1]            # check the last word 
-                       
-            if( is_price(last)==True ):
-                price = last
-                description=description.replace(last,"")
-
-    if( price != "" ):
-        price=price.strip()
-        file_out.write(dish_name + "\t" + price + "\n")
-        file_out.write(description + "\n")
-        # a empty line indicates new item starts
-        file_out.write("\n")        
-        # reset parameters 
-        dish_name = ""
-        price = ""            
-        description = ""
-
-   
 
 file.close()
 file_out.close()
 
-#show file
-file=open(gen_file, "r")
-while True:
-    line = file.readline()
-
-    # if line is empty, end of file is reached
-    if not line:
-        break
-    
-    print(line)
-
-file.close()
