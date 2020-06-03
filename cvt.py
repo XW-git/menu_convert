@@ -19,20 +19,33 @@ def is_price( str ):
     t = str.replace(".", "")
     return t.isdigit()
 
+tt_ds = False
 def get_title_part(line):
     global title
     global title_done
+    global tt_ds
     if line=="\n":
         if title=="":
            return
         else:
-           file_out.write("\n\n")
-           title_done=True
-           return
+        #reached title end
+            if tt_ds == True:
+                file_out.write("<\\tt_ds><br>")
+            file_out.write("\n\n")
+            title_done=True
+            return
+               
     else:
-        title=line 
-        file_out.write(title)
-        return    
+        if title=="":
+            title=line 
+            file_out.write("<tt>"+title.strip()+"<\\tt>"+"<br>"+"\n")
+            return  
+        else:
+            if tt_ds==False:
+                tt_ds = True
+                file_out.write("<tt_ds>"+line.strip())
+            else:
+                file_out.write(" "+line.strip())
         
 def get_dish_items(line):
     global dish_name
@@ -114,9 +127,9 @@ while True:
         check_items_end()           
         if( price != "" ):
             price=price.strip()
-            file_out.write(dish_name + "\t" + price + "\n")
+            file_out.write(dish_name + "<pr>" + price + "<\\pr>" + "<br>" + "\n")
             if description != "":
-                file_out.write(description + "\n")
+                file_out.write( "<ds>" + description + "<\\ds>" + "<br>" + "\n")
             # a empty line indicates new item starts
             file_out.write("\n")        
             # reset parameters 
